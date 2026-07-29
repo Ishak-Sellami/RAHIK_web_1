@@ -9,25 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as PerfumesRouteImport } from './routes/perfumes'
-import { Route as OffersRouteImport } from './routes/offers'
-import { Route as DiscountsRouteImport } from './routes/discounts'
-import { Route as ContactRouteImport } from './routes/contact'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DiscountsRouteImport } from './routes/discounts'
+import { Route as OffersRouteImport } from './routes/offers'
+import { Route as PerfumesRouteImport } from './routes/perfumes'
+import { Route as OffersOfferIdRouteImport } from './routes/offers/$offerId'
 
-const PerfumesRoute = PerfumesRouteImport.update({
-  id: '/perfumes',
-  path: '/perfumes',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OffersRoute = OffersRouteImport.update({
-  id: '/offers',
-  path: '/offers',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DiscountsRoute = DiscountsRouteImport.update({
-  id: '/discounts',
-  path: '/discounts',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -35,71 +26,94 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const DiscountsRoute = DiscountsRouteImport.update({
+  id: '/discounts',
+  path: '/discounts',
   getParentRoute: () => rootRouteImport,
+} as any)
+const OffersRoute = OffersRouteImport.update({
+  id: '/offers',
+  path: '/offers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerfumesRoute = PerfumesRouteImport.update({
+  id: '/perfumes',
+  path: '/perfumes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OffersOfferIdRoute = OffersOfferIdRouteImport.update({
+  id: '/$offerId',
+  path: '/$offerId',
+  getParentRoute: () => OffersRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
   '/discounts': typeof DiscountsRoute
-  '/offers': typeof OffersRoute
+  '/offers': typeof OffersRouteWithChildren
   '/perfumes': typeof PerfumesRoute
+  '/offers/$offerId': typeof OffersOfferIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
   '/discounts': typeof DiscountsRoute
-  '/offers': typeof OffersRoute
+  '/offers': typeof OffersRouteWithChildren
   '/perfumes': typeof PerfumesRoute
+  '/offers/$offerId': typeof OffersOfferIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/contact': typeof ContactRoute
   '/discounts': typeof DiscountsRoute
-  '/offers': typeof OffersRoute
+  '/offers': typeof OffersRouteWithChildren
   '/perfumes': typeof PerfumesRoute
+  '/offers/$offerId': typeof OffersOfferIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/contact' | '/discounts' | '/offers' | '/perfumes'
+  fullPaths:
+    | '/'
+    | '/contact'
+    | '/discounts'
+    | '/offers'
+    | '/perfumes'
+    | '/offers/$offerId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/contact' | '/discounts' | '/offers' | '/perfumes'
-  id: '__root__' | '/' | '/contact' | '/discounts' | '/offers' | '/perfumes'
+  to:
+    | '/'
+    | '/contact'
+    | '/discounts'
+    | '/offers'
+    | '/perfumes'
+    | '/offers/$offerId'
+  id:
+    | '__root__'
+    | '/'
+    | '/contact'
+    | '/discounts'
+    | '/offers'
+    | '/perfumes'
+    | '/offers/$offerId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContactRoute: typeof ContactRoute
   DiscountsRoute: typeof DiscountsRoute
-  OffersRoute: typeof OffersRoute
+  OffersRoute: typeof OffersRouteWithChildren
   PerfumesRoute: typeof PerfumesRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/perfumes': {
-      id: '/perfumes'
-      path: '/perfumes'
-      fullPath: '/perfumes'
-      preLoaderRoute: typeof PerfumesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/offers': {
-      id: '/offers'
-      path: '/offers'
-      fullPath: '/offers'
-      preLoaderRoute: typeof OffersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/discounts': {
-      id: '/discounts'
-      path: '/discounts'
-      fullPath: '/discounts'
-      preLoaderRoute: typeof DiscountsRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -109,23 +123,65 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/discounts': {
+      id: '/discounts'
+      path: '/discounts'
+      fullPath: '/discounts'
+      preLoaderRoute: typeof DiscountsRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/offers': {
+      id: '/offers'
+      path: '/offers'
+      fullPath: '/offers'
+      preLoaderRoute: typeof OffersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perfumes': {
+      id: '/perfumes'
+      path: '/perfumes'
+      fullPath: '/perfumes'
+      preLoaderRoute: typeof PerfumesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/offers/$offerId': {
+      id: '/offers/$offerId'
+      path: '/$offerId'
+      fullPath: '/offers/$offerId'
+      preLoaderRoute: typeof OffersOfferIdRouteImport
+      parentRoute: typeof OffersRoute
     }
   }
 }
+
+interface OffersRouteChildren {
+  OffersOfferIdRoute: typeof OffersOfferIdRoute
+}
+
+const OffersRouteChildren: OffersRouteChildren = {
+  OffersOfferIdRoute: OffersOfferIdRoute,
+}
+
+const OffersRouteWithChildren =
+  OffersRoute._addFileChildren(OffersRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContactRoute: ContactRoute,
   DiscountsRoute: DiscountsRoute,
-  OffersRoute: OffersRoute,
+  OffersRoute: OffersRouteWithChildren,
   PerfumesRoute: PerfumesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

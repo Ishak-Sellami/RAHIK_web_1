@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SiteLayout, PageIntro, PlaceholderCard } from "@/components/SiteLayout";
+import { SiteLayout, PageIntro } from "@/components/SiteLayout";
+import { PerfumeCard } from "@/components/PerfumeCard";
 import { useI18n } from "@/lib/i18n";
+import { PERFUMES } from "@/lib/catalog";
 
 export const Route = createFileRoute("/perfumes")({
   head: () => ({
@@ -24,20 +26,14 @@ export const Route = createFileRoute("/perfumes")({
 
 function PerfumesPage() {
   const { t } = useI18n();
-  const items = [1, 2, 3, 4, 5, 6];
 
   return (
     <SiteLayout>
       <PageIntro title={t("perfumes.title")} text={t("perfumes.intro")} />
       <section className="mx-auto max-w-5xl px-6 pb-24 sm:pb-32">
-        <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 sm:gap-7">
-          {items.map((i) => (
-            <PlaceholderCard
-              key={i}
-              label={`${t("perfumes.item")} ${i}`}
-              description={t("perfumes.placeholder")}
-              imageLabel={t("card.image")}
-            />
+        <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 sm:gap-8">
+          {PERFUMES.map((perfume) => (
+            <PerfumeCard key={perfume.id} perfume={perfume} />
           ))}
         </div>
       </section>
