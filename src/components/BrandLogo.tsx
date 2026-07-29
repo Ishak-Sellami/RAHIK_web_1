@@ -1,11 +1,14 @@
 import logoAsset from "@/assets/rahiq-logo.png.asset.json";
-import { BRAND_NAME } from "@/lib/i18n";
+import { useAdmin } from "@/lib/admin-store";
 
 export function BrandLogo({ className = "h-10 w-auto" }: { className?: string }) {
+  const { state } = useAdmin();
+  const src = state.brand.logoUrl || logoAsset.url;
+
   return (
     <img
-      src={logoAsset.url}
-      alt={BRAND_NAME}
+      src={src}
+      alt={state.brand.brandName}
       className={className}
       loading="eager"
       decoding="async"
@@ -18,12 +21,14 @@ export function BrandLogo({ className = "h-10 w-auto" }: { className?: string })
  * with a single shared type size for both scripts.
  */
 export function BrandName({ className = "" }: { className?: string }) {
+  const { state } = useAdmin();
+
   return (
     <span
       dir="ltr"
       className={`whitespace-nowrap font-light tracking-[0.18em] text-foreground ${className}`}
     >
-      {BRAND_NAME}
+      {state.brand.brandName}
     </span>
   );
 }

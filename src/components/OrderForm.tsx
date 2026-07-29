@@ -1,0 +1,268 @@
+import { useMemo, useState } from "react";
+import { useI18n } from "@/lib/i18n";
+import { useAdmin, effectivePrice, type AdminOffer } from "@/lib/admin-store";
+import { WILAYAS } from "@/lib/algeria";
+import { formatPrice } from "@/lib/currency";
+import { sendOrderEmail } from "@/lib/email-service";
+import { cn } from "@/lib/utils";
+
+export function OrderForm({ offer }: { offer: AdminOffer }) {
+  const { t, lang } = useI18n();
+  const { state } = useAdmin();
+
+  const [fullName, setFullName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [wilayaCode, setWilayaCode] = useState("");
+  const [commune, setCommune] = useState("");
+  const [deliveryType, setDeliveryType] = useState<"home" | "office">("home");
+  const [quantity, setQuantity] = useState(1);
+  const [submitting, setSubmitting] = useState(false);
+  const [result, setResult] = useState<{ ok: boolean; msg: string } | null>(null);
+
+  const unitPrice = effectivePrice(offer);
+  const isFreeDelivery = offer.freeDelivery;
+
+  const deliveryPrice = useMemo(() => {
+    if (!wilayaCode) return null;
+    if (isFreeDelivery) return 0;
+    const pricing = state.deliveryPricing[wilayaCode];
+    if (!pricing) return null;
+    return deliveryType === "home" ? pricing.home : pricing.office;
+  }, [wilayaCode, deliveryType, isFreeDelivery, state.deliveryPricing]);
+
+  const subtotal = unitPrice * quantity;
+  const total = deliveryPrice != null ? subtotal + deliveryPrice : subtotal;
+
+  const selectedWilaya = WILAYAS.find((w) => w.code === wilayaCode);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!fullName || !phone || !wilayaCode || !commune) return;
+
+    setSubmitting(true);
+    const order = {
+      offerId: offer.id,
+      offerName: lang === "ar" ? offer.name.ar : offer.name.en,
+      fullName,
+      phone,
+      wilaya: selectedWilaya ? (lang === "ar" ? selectedWilaya.nameAr : selectedWilaya.nameEn) : wilayaCode,
+      commune,
+      deliveryType: deliveryType === "home" ? t("order.deliveryHome") : t("order.deliveryOffice"),
+      quantity,
+      unitPrice,
+      deliveryPrice: deliveryPrice ?? 0,
+      total,
+    };
+
+    const res = await sendOrderEmail(order);
+    setSubmitting(false);
+    setResult({ ok: res.success, msg: res.success ? t("order.success") : t("order.error") });
+    if (res.success) {
+      setFullName("");
+      setPhone("");
+      setWilayaCode("");
+      setCommune("");
+      setQuantity(1);
+    }
+  }
+
+  const inputClass =
+    "w-full rounded-md border border-border bg-background px-4 py-3 text-sm font-light text-foreground transition-colors focus:border-primary focus:outline-none";
+  const labelClass =
+    "mb-2 block text-[0.68rem] font-light tracking-[0.16em] text-muted-foreground";
+  const selectClass = cn(inputClass, "appearance-none cursor-pointer");
+
+  return (
+    <div className="space-y-8">
+      {/* ─── Form Fields ─── */}
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label className={labelClass} htmlFor="fullName">
+            {t("order.fullName")}
+          </label>
+          <input
+            id="fullName"
+            type="text"
+            required
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            placeholder={t("order.fullNamePlaceholder")}
+            className={inputClass}
+          />
+        </div>
+
+        <div>
+          <label className={labelClass} htmlFor="phone">
+            {t("order.phone")}
+          </label>
+          <input
+            id="phone"
+            type="tel"
+            required
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder={t("order.phonePlaceholder")}
+            className={inputClass}
+            dir="ltr"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div>
+            <label className={labelClass} htmlFor="wilaya">
+              {t("order.wilaya")}
+            </label>
+            <select
+              id="wilaya"
+              required
+              value={wilayaCode}
+              onChange={(e) => {
+                setWilayaCode(e.target.value);
+                setCommune("");
+              }}
+              className={selectClass}
+            >
+              <option value="" disabled>
+                {t("order.wilayaPlaceholder")}
+              </option>
+              {WILAYAS.map((w) => (
+                <option key={w.code} value={w.code}>
+                  {w.code} — {lang === "ar" ? w.nameAr : w.nameEn}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className={labelClass} htmlFor="commune">
+              {t("order.commune")}
+            </label>
+            <select
+              id="commune"
+              required
+              value={commune}
+              onChange={(e) => setCommune(e.target.value)}
+              disabled={!wilayaCode}
+              className={cn(selectClass, !wilayaCode && "opacity-50")}
+            >
+              <option value="" disabled>
+                {t("order.communePlaceholder")}
+              </option>
+              {selectedWilaya?.communes.map((c, i) => (
+                <option key={i} value={lang === "ar" ? c.nameAr : c.nameEn}>
+                  {lang === "ar" ? c.nameAr : c.nameEn}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label className={labelClass} htmlFor="deliveryType">
+            {t("order.deliveryType")}
+          </label>
+          <select
+            id="deliveryType"
+            value={deliveryType}
+            onChange={(e) => setDeliveryType(e.target.value as "home" | "office")}
+            className={selectClass}
+          >
+            <option value="home">{t("order.deliveryHome")}</option>
+            <option value="office">{t("order.deliveryOffice")}</option>
+          </select>
+        </div>
+
+        <div>
+          <label className={labelClass}>{t("order.quantity")}</label>
+          <div className="inline-flex items-center rounded-md border border-border">
+            <button
+              type="button"
+              onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+              className="flex h-11 w-11 items-center justify-center text-lg font-light text-muted-foreground transition-colors hover:text-primary disabled:opacity-30"
+              disabled={quantity <= 1}
+              aria-label="−"
+            >
+              −
+            </button>
+            <span className="min-w-[3rem] text-center text-sm font-light tabular-nums text-foreground">
+              {quantity}
+            </span>
+            <button
+              type="button"
+              onClick={() => setQuantity((q) => Math.min(99, q + 1))}
+              className="flex h-11 w-11 items-center justify-center text-lg font-light text-muted-foreground transition-colors hover:text-primary"
+              aria-label="+"
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          disabled={submitting}
+          className="w-full rounded-md bg-primary px-6 py-3.5 text-[0.72rem] font-light tracking-[0.2em] text-primary-foreground transition-all duration-300 hover:opacity-90 disabled:opacity-50"
+        >
+          {submitting ? t("order.submitting") : t("order.submit")}
+        </button>
+      </form>
+
+      {/* ─── Live Order Summary ─── */}
+      <div className="rounded-xl border border-primary/25 bg-card p-6 shadow-[0_1px_24px_-18px_oklch(0.218_0_0/0.6)] sm:p-8">
+        <h3 className="text-center text-[0.68rem] font-light tracking-[0.22em] text-muted-foreground">
+          {t("summary.title")}
+        </h3>
+        <span className="mx-auto mt-5 block h-px w-8 bg-primary/40" aria-hidden="true" />
+
+        <dl className="mt-6 space-y-4">
+          {/* Unit Price × Quantity = Price */}
+          <div className="flex items-center justify-between text-sm font-light">
+            <dt className="flex items-center gap-2 text-muted-foreground">
+              <span>{t("summary.unitPrice")}</span>
+              <span className="text-[0.6rem] text-border">×</span>
+              <span>{quantity}</span>
+            </dt>
+            <dd className="tabular-nums text-foreground">{formatPrice(subtotal)}</dd>
+          </div>
+
+          {/* Delivery */}
+          <div className="flex items-center justify-between text-sm font-light">
+            <dt className="text-muted-foreground">{t("summary.delivery")}</dt>
+            <dd className="tabular-nums text-foreground">
+              {deliveryPrice == null
+                ? t("summary.selectWilaya")
+                : deliveryPrice === 0
+                  ? t("summary.free")
+                  : formatPrice(deliveryPrice)}
+            </dd>
+          </div>
+
+          {/* Divider */}
+          <div className="h-px bg-border/60" />
+
+          {/* Total */}
+          <div className="flex items-center justify-between text-sm font-light">
+            <dt className="tracking-[0.16em] text-foreground">{t("summary.total")}</dt>
+            <dd className="text-base font-light tabular-nums text-primary">
+              {formatPrice(total)}
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      {/* ─── Result message ─── */}
+      {result && (
+        <p
+          className={cn(
+            "rounded-md border px-4 py-3 text-center text-[0.78rem] font-light",
+            result.ok
+              ? "border-primary/30 bg-accent text-accent-foreground"
+              : "border-destructive/30 bg-destructive/10 text-destructive",
+          )}
+        >
+          {result.msg}
+        </p>
+      )}
+    </div>
+  );
+}

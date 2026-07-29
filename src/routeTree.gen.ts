@@ -14,6 +14,13 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DiscountsRouteImport } from './routes/discounts'
 import { Route as OffersRouteImport } from './routes/offers'
 import { Route as PerfumesRouteImport } from './routes/perfumes'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminContactsRouteImport } from './routes/admin/contacts'
+import { Route as AdminDeliveryRouteImport } from './routes/admin/delivery'
+import { Route as AdminDiscountsRouteImport } from './routes/admin/discounts'
+import { Route as AdminOffersRouteImport } from './routes/admin/offers'
+import { Route as AdminProductsRouteImport } from './routes/admin/products'
+import { Route as AdminSettingsRouteImport } from './routes/admin/settings'
 import { Route as OffersOfferIdRouteImport } from './routes/offers/$offerId'
 
 const IndexRoute = IndexRouteImport.update({
@@ -41,6 +48,41 @@ const PerfumesRoute = PerfumesRouteImport.update({
   path: '/perfumes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminContactsRoute = AdminContactsRouteImport.update({
+  id: '/admin/contacts',
+  path: '/admin/contacts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminDeliveryRoute = AdminDeliveryRouteImport.update({
+  id: '/admin/delivery',
+  path: '/admin/delivery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminDiscountsRoute = AdminDiscountsRouteImport.update({
+  id: '/admin/discounts',
+  path: '/admin/discounts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminOffersRoute = AdminOffersRouteImport.update({
+  id: '/admin/offers',
+  path: '/admin/offers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminProductsRoute = AdminProductsRouteImport.update({
+  id: '/admin/products',
+  path: '/admin/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/admin/settings',
+  path: '/admin/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OffersOfferIdRoute = OffersOfferIdRouteImport.update({
   id: '/$offerId',
   path: '/$offerId',
@@ -53,7 +95,14 @@ export interface FileRoutesByFullPath {
   '/discounts': typeof DiscountsRoute
   '/offers': typeof OffersRouteWithChildren
   '/perfumes': typeof PerfumesRoute
+  '/admin/contacts': typeof AdminContactsRoute
+  '/admin/delivery': typeof AdminDeliveryRoute
+  '/admin/discounts': typeof AdminDiscountsRoute
+  '/admin/offers': typeof AdminOffersRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/offers/$offerId': typeof OffersOfferIdRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -61,7 +110,14 @@ export interface FileRoutesByTo {
   '/discounts': typeof DiscountsRoute
   '/offers': typeof OffersRouteWithChildren
   '/perfumes': typeof PerfumesRoute
+  '/admin/contacts': typeof AdminContactsRoute
+  '/admin/delivery': typeof AdminDeliveryRoute
+  '/admin/discounts': typeof AdminDiscountsRoute
+  '/admin/offers': typeof AdminOffersRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/offers/$offerId': typeof OffersOfferIdRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -70,7 +126,14 @@ export interface FileRoutesById {
   '/discounts': typeof DiscountsRoute
   '/offers': typeof OffersRouteWithChildren
   '/perfumes': typeof PerfumesRoute
+  '/admin/contacts': typeof AdminContactsRoute
+  '/admin/delivery': typeof AdminDeliveryRoute
+  '/admin/discounts': typeof AdminDiscountsRoute
+  '/admin/offers': typeof AdminOffersRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/offers/$offerId': typeof OffersOfferIdRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -80,7 +143,14 @@ export interface FileRouteTypes {
     | '/discounts'
     | '/offers'
     | '/perfumes'
+    | '/admin/contacts'
+    | '/admin/delivery'
+    | '/admin/discounts'
+    | '/admin/offers'
+    | '/admin/products'
+    | '/admin/settings'
     | '/offers/$offerId'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -88,7 +158,14 @@ export interface FileRouteTypes {
     | '/discounts'
     | '/offers'
     | '/perfumes'
+    | '/admin/contacts'
+    | '/admin/delivery'
+    | '/admin/discounts'
+    | '/admin/offers'
+    | '/admin/products'
+    | '/admin/settings'
     | '/offers/$offerId'
+    | '/admin'
   id:
     | '__root__'
     | '/'
@@ -96,7 +173,14 @@ export interface FileRouteTypes {
     | '/discounts'
     | '/offers'
     | '/perfumes'
+    | '/admin/contacts'
+    | '/admin/delivery'
+    | '/admin/discounts'
+    | '/admin/offers'
+    | '/admin/products'
+    | '/admin/settings'
     | '/offers/$offerId'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -105,6 +189,13 @@ export interface RootRouteChildren {
   DiscountsRoute: typeof DiscountsRoute
   OffersRoute: typeof OffersRouteWithChildren
   PerfumesRoute: typeof PerfumesRoute
+  AdminContactsRoute: typeof AdminContactsRoute
+  AdminDeliveryRoute: typeof AdminDeliveryRoute
+  AdminDiscountsRoute: typeof AdminDiscountsRoute
+  AdminOffersRoute: typeof AdminOffersRoute
+  AdminProductsRoute: typeof AdminProductsRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
+  AdminIndexRoute: typeof AdminIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -144,6 +235,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PerfumesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/contacts': {
+      id: '/admin/contacts'
+      path: '/admin/contacts'
+      fullPath: '/admin/contacts'
+      preLoaderRoute: typeof AdminContactsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/delivery': {
+      id: '/admin/delivery'
+      path: '/admin/delivery'
+      fullPath: '/admin/delivery'
+      preLoaderRoute: typeof AdminDeliveryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/discounts': {
+      id: '/admin/discounts'
+      path: '/admin/discounts'
+      fullPath: '/admin/discounts'
+      preLoaderRoute: typeof AdminDiscountsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/offers': {
+      id: '/admin/offers'
+      path: '/admin/offers'
+      fullPath: '/admin/offers'
+      preLoaderRoute: typeof AdminOffersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/products': {
+      id: '/admin/products'
+      path: '/admin/products'
+      fullPath: '/admin/products'
+      preLoaderRoute: typeof AdminProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/admin/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/offers/$offerId': {
       id: '/offers/$offerId'
       path: '/$offerId'
@@ -171,6 +311,13 @@ const rootRouteChildren: RootRouteChildren = {
   DiscountsRoute: DiscountsRoute,
   OffersRoute: OffersRouteWithChildren,
   PerfumesRoute: PerfumesRoute,
+  AdminContactsRoute: AdminContactsRoute,
+  AdminDeliveryRoute: AdminDeliveryRoute,
+  AdminDiscountsRoute: AdminDiscountsRoute,
+  AdminOffersRoute: AdminOffersRoute,
+  AdminProductsRoute: AdminProductsRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
+  AdminIndexRoute: AdminIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

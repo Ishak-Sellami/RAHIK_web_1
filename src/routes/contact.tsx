@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout, PageIntro } from "@/components/SiteLayout";
 import { useI18n } from "@/lib/i18n";
-import { SOCIAL_LINKS } from "@/lib/social";
+import { useSocialLinks } from "@/lib/social";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -25,16 +25,19 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const { t } = useI18n();
+  const socialLinks = useSocialLinks();
 
   return (
     <SiteLayout>
       <PageIntro title={t("contact.title")} text={t("contact.intro")} />
       <section className="mx-auto max-w-xl px-6 pb-24 sm:pb-32">
         <ul className="divide-y divide-border/70 border-y border-border/70">
-          {SOCIAL_LINKS.map(({ key, href, Icon }) => (
+          {socialLinks.map(({ key, href, Icon }) => (
             <li key={key}>
               <a
                 href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group flex items-center gap-4 py-5 transition-colors hover:bg-muted/50"
               >
                 <Icon

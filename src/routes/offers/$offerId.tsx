@@ -2,9 +2,10 @@ import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
 import { ImageGallery } from "@/components/ImageGallery";
 import { PriceTag } from "@/components/PriceTag";
+import { OrderForm } from "@/components/OrderForm";
 import { useLocalized } from "@/lib/use-localized";
 import { useI18n } from "@/lib/i18n";
-import { findOffer } from "@/lib/catalog";
+import { useAdmin, effectivePrice, oldPrice, type AdminOffer } from "@/lib/admin-store";
 
 export const Route = createFileRoute("/offers/$offerId")({
   head: () => ({
@@ -23,23 +24,41 @@ export const Route = createFileRoute("/offers/$offerId")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  beforeLoad: ({ params }) => {
-    const offer = findOffer(params.offerId);
-    if (!offer) {
-      throw notFound();
-    }
-    return { offer };
+  beforeLoad: ({ params, context }) => {
+    // context doesn't have admin state in beforeLoad; we'll handle in component
+    void context;
+    void params;
   },
   component: OfferDetailsPage,
 });
 
 function OfferDetailsPage() {
-  const { offer } = Route.useRouteContext();
+  const { offerId } = Route.useParams();
+  const { state } = useAdmin();
   const localize = useLocalized();
   const { t } = useI18n();
 
+  const offer = state.offers.find((o) => o.id === offerId);
+  if (!offer) {
+    throw notFound();
+  }
+
+  return <OfferDetailsContent offer={offer} localize={localize} t={t} />;
+}
+
+function OfferDetailsContent({
+  offer,
+  localize,
+  t,
+}: {
+  offer: AdminOffer;
+  localize: (v: { ar: string; en: string }) => string;
+  t: (k: string) => string;
+}) {
   const name = localize(offer.name);
   const description = localize(offer.description);
+  const price = effectivePrice(offer);
+  const oldP = oldPrice(offer);
 
   return (
     <SiteLayout>
@@ -63,8 +82,8 @@ function OfferDetailsPage() {
         <span className="mx-auto mt-6 block h-px w-10 bg-primary/60" aria-hidden="true" />
         <div className="mt-6">
           <PriceTag
-            price={offer.price}
-            oldPrice={offer.oldPrice}
+            price={price}
+            oldPrice={oldP}
             className="justify-center"
             priceClassName="text-base tracking-[0.1em]"
           />
@@ -127,15 +146,12 @@ function OfferDetailsPage() {
         </div>
       </section>
 
+      {/* ─── Order Form (Phase 4) ─── */}
       <section className="mx-auto max-w-2xl px-6 pb-24 sm:pb-32">
-        <h2 className="mb-6 text-center text-[0.68rem] font-light tracking-[0.22em] text-muted-foreground">
+        <h2 className="mb-8 text-center text-[0.68rem] font-light tracking-[0.22em] text-muted-foreground">
           {t("offerDetails.orderForm")}
         </h2>
-        <div className="flex min-h-[12rem] items-center justify-center rounded-xl border border-dashed border-border bg-muted/30 px-6 py-10 text-center">
-          <p className="text-[0.72rem] font-light leading-loose text-muted-foreground">
-            {t("offerDetails.orderFormPlaceholder")}
-          </p>
-        </div>
+        <OrderForm offer={offer} />
       </section>
     </SiteLayout>
   );

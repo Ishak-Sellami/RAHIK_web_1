@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import type { Offer } from "@/lib/catalog";
+import type { AdminOffer } from "@/lib/admin-store";
+import { effectivePrice, oldPrice } from "@/lib/admin-store";
 import { useLocalized } from "@/lib/use-localized";
 import { PriceTag } from "@/components/PriceTag";
 import { cn } from "@/lib/utils";
@@ -14,18 +15,17 @@ export function OfferCard({
   offer,
   withCountdown = false,
 }: {
-  offer: Offer;
+  offer: AdminOffer;
   withCountdown?: boolean;
 }) {
   const localize = useLocalized();
   const name = localize(offer.name);
   const description = localize(offer.description);
-  const offerId = offer.id.replace(/-promo$/, "");
 
   return (
     <Link
       to="/offers/$offerId"
-      params={{ offerId }}
+      params={{ offerId: offer.id }}
       className="group flex flex-col overflow-hidden rounded-lg border border-primary/25 bg-card shadow-[0_1px_24px_-18px_oklch(0.218_0_0/0.6)] transition-all duration-500 hover:-translate-y-0.5 hover:border-primary/60 hover:shadow-[0_10px_40px_-26px_oklch(0.218_0_0/0.7)]"
     >
       <div className="aspect-[3/4] overflow-hidden bg-muted">
@@ -55,7 +55,11 @@ export function OfferCard({
         </p>
 
         <div className="mt-5">
-          <PriceTag price={offer.price} oldPrice={offer.oldPrice} className="justify-center" />
+          <PriceTag
+            price={effectivePrice(offer)}
+            oldPrice={oldPrice(offer)}
+            className="justify-center"
+          />
         </div>
 
         {withCountdown && (
