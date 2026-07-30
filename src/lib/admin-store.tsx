@@ -70,7 +70,7 @@ const DEFAULT_BRAND: BrandSettings = {
   logoUrl: "",
   brandName: "RAHIQ Parfums | رحيق",
   heroLogoUrl: "",
-  faviconUrl: "/favicon.ico",
+  faviconUrl: "/favicon.svg",
 };
 
 const DEFAULT_CONTACTS: ContactLinks = {
