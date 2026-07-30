@@ -20,7 +20,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4 sm:px-8">
-          <h1 className="text-[0.78rem] font-light tracking-[0.2em] text-foreground">
+          <h1 className="text-base font-normal tracking-[0.18em] text-foreground sm:text-lg">
             {t("admin.title")}
           </h1>
           <Link
@@ -36,7 +36,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
               <li key={item.to} className="shrink-0">
                 <Link
                   to={item.to}
-                  className="text-[0.62rem] font-light tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground"
+                  className="text-sm font-normal tracking-[0.14em] text-muted-foreground transition-colors hover:text-foreground"
                   activeProps={{ className: "text-foreground" }}
                   activeOptions={{ exact: item.exact }}
                 >
@@ -69,7 +69,7 @@ export function AdminCard({ children, className }: { children: ReactNode; classN
 export function AdminSectionTitle({ children }: { children: ReactNode }) {
   return (
     <>
-      <h2 className="text-xl font-extralight tracking-[0.16em] text-foreground sm:text-2xl">
+      <h2 className="text-xl font-normal tracking-[0.12em] text-foreground sm:text-2xl">
         {children}
       </h2>
       <span className="mt-4 block h-px w-10 bg-primary/60" aria-hidden="true" />
@@ -78,8 +78,8 @@ export function AdminSectionTitle({ children }: { children: ReactNode }) {
 }
 
 const inputClass =
-  "w-full rounded-md border border-border bg-background px-4 py-2.5 text-sm font-light text-foreground transition-colors focus:border-primary focus:outline-none";
-const labelClass = "mb-1.5 block text-[0.62rem] font-light tracking-[0.16em] text-muted-foreground";
+  "w-full rounded-lg border border-border bg-background px-4 py-3 text-base font-normal text-foreground transition-colors focus:border-primary focus:outline-none";
+const labelClass = "mb-1.5 block text-sm font-normal tracking-[0.08em] text-muted-foreground";
 
 export function AdminField({
   label,
@@ -125,7 +125,7 @@ export function AdminButton({
     <button
       {...props}
       className={cn(
-        "rounded-md px-5 py-2.5 text-[0.68rem] font-light tracking-[0.2em] transition-all duration-300 disabled:opacity-50",
+        "rounded-lg px-5 py-3 text-sm font-normal tracking-[0.14em] transition-all duration-300 disabled:opacity-50",
         variant === "primary"
           ? "bg-primary text-primary-foreground hover:opacity-90"
           : "border border-border text-muted-foreground hover:text-foreground",

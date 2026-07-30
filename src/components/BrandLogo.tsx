@@ -26,7 +26,7 @@ export function BrandName({ className = "" }: { className?: string }) {
   return (
     <span
       dir="ltr"
-      className={`whitespace-nowrap font-light tracking-[0.18em] text-foreground ${className}`}
+      className={`whitespace-nowrap font-normal tracking-[0.14em] text-foreground ${className}`}
     >
       {state.brand.brandName}
     </span>

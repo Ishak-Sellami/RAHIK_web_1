@@ -12,16 +12,16 @@ export function RatingBar({ entry, delay = 0 }: { entry: RatingEntry; delay?: nu
 
   return (
     <div className="flex items-center gap-4">
-      <span className="w-16 shrink-0 text-[0.7rem] font-light tracking-[0.12em] text-muted-foreground sm:w-20">
+      <span className="w-20 shrink-0 text-sm font-normal tracking-[0.08em] text-muted-foreground sm:w-24">
         {t(entry.key)}
       </span>
-      <div className="relative h-px flex-1 overflow-hidden bg-border/60">
+      <div className="relative h-1 flex-1 overflow-hidden rounded-full bg-border/50">
         <div
-          className="absolute inset-y-0 start-0 bg-primary/70 transition-[width] duration-1000 ease-out"
+          className="absolute inset-y-0 start-0 rounded-full bg-primary/80 transition-[width] duration-1000 ease-out"
           style={{ width: `${entry.value}%`, transitionDelay: `${delay}ms` }}
         />
       </div>
-      <span className="w-9 shrink-0 text-end text-[0.68rem] font-light tabular-nums text-foreground">
+      <span className="w-10 shrink-0 text-end text-sm font-normal tabular-nums text-foreground">
         {entry.value}%
       </span>
     </div>
@@ -44,13 +44,13 @@ export function RatingGroup({
     <div className="space-y-3">
       <h3
         className={cn(
-          "text-[0.68rem] font-light tracking-[0.22em] text-muted-foreground",
+          "text-xs font-normal tracking-[0.18em] text-muted-foreground",
           titleClassName,
         )}
       >
         {title}
       </h3>
-      <div className="space-y-2.5">
+      <div className="space-y-3">
         {entries.map((entry, i) => (
           <RatingBar key={entry.key} entry={entry} delay={i * 80} />
         ))}

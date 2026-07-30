@@ -21,7 +21,7 @@ export function ImageGallery({
   return (
     <div className={cn("relative", className)}>
       <div
-        className="flex snap-x snap-mandatory overflow-x-auto overflow-y-hidden [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex snap-x snap-mandatory overflow-x-auto overflow-y-hidden rounded-2xl [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         onScroll={(e) => {
           const el = e.currentTarget;
           const index = Math.round(el.scrollLeft / el.clientWidth);
@@ -45,13 +45,13 @@ export function ImageGallery({
       </div>
 
       {images.length > 1 && (
-        <div className="mt-4 flex items-center justify-center gap-2">
+        <div className="mt-5 flex items-center justify-center gap-2.5">
           {images.map((_, i) => (
             <span
               key={i}
               className={cn(
-                "h-1.5 rounded-full transition-all duration-500",
-                i === active ? "w-6 bg-primary" : "w-1.5 bg-border",
+                "h-2 rounded-full transition-all duration-500",
+                i === active ? "w-8 bg-primary" : "w-2 bg-border",
               )}
               aria-hidden="true"
             />

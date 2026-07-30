@@ -17,12 +17,12 @@ export function PriceTag({
   priceClassName?: string;
 }) {
   return (
-    <div className={cn("flex items-baseline gap-2", className)}>
-      <span className={cn("text-sm font-light tracking-wide text-foreground", priceClassName)}>
+    <div className={cn("flex items-baseline gap-2.5", className)}>
+      <span className={cn("text-lg font-normal tracking-wide text-foreground", priceClassName)}>
         {formatPrice(price)}
       </span>
       {oldPrice != null && oldPrice > price && (
-        <span className="text-[0.72rem] font-light text-muted-foreground line-through">
+        <span className="text-sm font-normal text-muted-foreground line-through">
           {formatPrice(oldPrice)}
         </span>
       )}

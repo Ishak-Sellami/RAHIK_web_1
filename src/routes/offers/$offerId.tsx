@@ -25,7 +25,6 @@ export const Route = createFileRoute("/offers/$offerId")({
     ],
   }),
   beforeLoad: ({ params, context }) => {
-    // context doesn't have admin state in beforeLoad; we'll handle in component
     void context;
     void params;
   },
@@ -65,7 +64,7 @@ function OfferDetailsContent({
       <section className="mx-auto max-w-3xl px-6 pt-10 pb-6 sm:pt-16">
         <Link
           to="/offers"
-          className="text-[0.62rem] font-light tracking-[0.24em] text-muted-foreground transition-colors hover:text-primary"
+          className="text-xs font-normal tracking-[0.18em] text-muted-foreground transition-colors hover:text-primary"
         >
           {t("offerDetails.backToOffers")}
         </Link>
@@ -76,36 +75,36 @@ function OfferDetailsContent({
       </section>
 
       <section className="mx-auto max-w-2xl px-6 pb-10 text-center">
-        <h1 className="text-2xl font-extralight tracking-[0.2em] text-foreground sm:text-3xl">
+        <h1 className="text-2xl font-normal tracking-[0.16em] text-foreground sm:text-4xl">
           {name}
         </h1>
-        <span className="mx-auto mt-6 block h-px w-10 bg-primary/60" aria-hidden="true" />
+        <span className="mx-auto mt-6 block h-px w-12 bg-primary/60" aria-hidden="true" />
         <div className="mt-6">
           <PriceTag
             price={price}
             oldPrice={oldP}
             className="justify-center"
-            priceClassName="text-base tracking-[0.1em]"
+            priceClassName="text-xl tracking-[0.08em]"
           />
         </div>
-        <p className="mx-auto mt-6 max-w-md text-sm font-light leading-loose text-muted-foreground">
+        <p className="mx-auto mt-6 max-w-md text-base font-normal leading-relaxed text-muted-foreground">
           {description}
         </p>
       </section>
 
       <section className="mx-auto max-w-2xl px-6 pb-12">
-        <div className="rounded-xl border border-primary/25 bg-card p-7 shadow-[0_1px_24px_-18px_oklch(0.218_0_0/0.6)] sm:p-9">
-          <h2 className="text-center text-[0.68rem] font-light tracking-[0.22em] text-muted-foreground">
+        <div className="rounded-2xl border border-primary/20 bg-card p-7 shadow-[0_2px_24px_-18px_oklch(0.145_0_0/0.5)] sm:p-9">
+          <h2 className="text-center text-sm font-normal tracking-[0.18em] text-muted-foreground">
             {t("offerDetails.included")}
           </h2>
-          <span className="mx-auto mt-5 block h-px w-8 bg-primary/40" aria-hidden="true" />
-          <ul className="mt-6 space-y-3.5">
+          <span className="mx-auto mt-5 block h-px w-10 bg-primary/50" aria-hidden="true" />
+          <ul className="mt-6 space-y-4">
             {offer.includes.map((item, i) => (
               <li
                 key={i}
-                className="flex items-center gap-3 text-[0.78rem] font-light text-card-foreground"
+                className="flex items-center gap-3 text-base font-normal text-card-foreground"
               >
-                <span className="h-1 w-1 shrink-0 rounded-full bg-primary/60" aria-hidden="true" />
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary/70" aria-hidden="true" />
                 {localize(item)}
               </li>
             ))}
@@ -114,30 +113,30 @@ function OfferDetailsContent({
       </section>
 
       <section className="mx-auto max-w-5xl px-6 pb-16">
-        <h2 className="mb-8 text-center text-[0.68rem] font-light tracking-[0.22em] text-muted-foreground">
+        <h2 className="mb-8 text-center text-sm font-normal tracking-[0.18em] text-muted-foreground">
           {t("offerDetails.perfumes")}
         </h2>
-        <div className="grid grid-cols-1 gap-7 sm:grid-cols-3 sm:gap-8">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-7">
           {offer.perfumes.map((perfume, i) => (
             <article
               key={i}
-              className="group overflow-hidden rounded-lg border border-primary/25 bg-card shadow-[0_1px_24px_-18px_oklch(0.218_0_0/0.6)] transition-all duration-500 hover:border-primary/60 hover:shadow-[0_10px_40px_-26px_oklch(0.218_0_0/0.7)]"
+              className="group overflow-hidden rounded-2xl border border-primary/20 bg-card shadow-[0_2px_24px_-18px_oklch(0.145_0_0/0.5)] transition-all duration-500 hover:border-primary/50 hover:shadow-[0_10px_40px_-26px_oklch(0.145_0_0/0.6)]"
             >
               <div className="aspect-[3/4] overflow-hidden bg-muted">
                 <img
                   src={perfume.image}
                   alt={localize(perfume.name)}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
                   decoding="async"
                 />
               </div>
               <div className="px-5 pb-6 pt-5 text-center">
-                <h3 className="text-[0.82rem] font-light tracking-[0.16em] text-card-foreground">
+                <h3 className="text-base font-normal tracking-[0.1em] text-card-foreground">
                   {localize(perfume.name)}
                 </h3>
-                <span className="mx-auto mt-4 block h-px w-8 bg-primary/40" aria-hidden="true" />
-                <p className="mt-4 text-[0.72rem] font-light leading-relaxed text-muted-foreground">
+                <span className="mx-auto mt-3 block h-px w-8 bg-primary/40" aria-hidden="true" />
+                <p className="mt-3 text-sm font-normal leading-relaxed text-muted-foreground">
                   {localize(perfume.description)}
                 </p>
               </div>
@@ -148,7 +147,7 @@ function OfferDetailsContent({
 
       {/* ─── Order Form (Phase 4) ─── */}
       <section className="mx-auto max-w-2xl px-6 pb-24 sm:pb-32">
-        <h2 className="mb-8 text-center text-[0.68rem] font-light tracking-[0.22em] text-muted-foreground">
+        <h2 className="mb-8 text-center text-sm font-normal tracking-[0.18em] text-muted-foreground">
           {t("offerDetails.orderForm")}
         </h2>
         <OrderForm offer={offer} />

@@ -31,8 +31,8 @@ function OffersPage() {
   return (
     <SiteLayout>
       <PageIntro title={t("offers.title")} text={t("offers.intro")} />
-      <section className="mx-auto max-w-5xl px-6 pb-24 sm:pb-32">
-        <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 sm:gap-7">
+      <section className="mx-auto max-w-5xl px-6 pb-20 sm:pb-24">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6">
           {state.offers.map((offer) => (
             <OfferCard key={offer.id} offer={offer} />
           ))}

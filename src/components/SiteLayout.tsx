@@ -21,12 +21,14 @@ export function SiteLayout({
 /** Shared page heading for inner pages. */
 export function PageIntro({ title, text }: { title: string; text: string }) {
   return (
-    <section className="mx-auto max-w-2xl px-6 pt-16 pb-10 text-center sm:pt-24 sm:pb-14">
-      <h1 className="text-2xl font-extralight tracking-[0.2em] text-foreground sm:text-3xl">
+    <section className="mx-auto max-w-2xl px-6 pt-12 pb-8 text-center sm:pt-20 sm:pb-12">
+      <h1 className="text-2xl font-normal tracking-[0.16em] text-foreground sm:text-4xl">
         {title}
       </h1>
-      <span className="mx-auto mt-6 block h-px w-10 bg-primary/60" aria-hidden="true" />
-      <p className="mt-6 text-sm font-light leading-loose text-muted-foreground">{text}</p>
+      <span className="mx-auto mt-5 block h-px w-12 bg-primary/60" aria-hidden="true" />
+      <p className="mx-auto mt-5 max-w-lg text-base font-normal leading-relaxed text-muted-foreground">
+        {text}
+      </p>
     </section>
   );
 }
@@ -42,18 +44,20 @@ export function PlaceholderCard({
   imageLabel: string;
 }) {
   return (
-    <article className="group rounded-lg border border-primary/25 bg-card p-4 shadow-[0_1px_24px_-18px_oklch(0.218_0_0/0.6)] transition-all duration-500 hover:border-primary/60 hover:shadow-[0_10px_40px_-26px_oklch(0.218_0_0/0.7)]">
-      <div className="flex aspect-[3/4] items-center justify-center rounded-md bg-muted">
-        <span className="text-[0.6rem] font-light tracking-[0.28em] text-muted-foreground">
+    <article className="group overflow-hidden rounded-xl border border-primary/20 bg-card shadow-[0_2px_24px_-18px_oklch(0.145_0_0/0.5)] transition-all duration-500 hover:border-primary/50 hover:shadow-[0_10px_40px_-26px_oklch(0.145_0_0/0.6)]">
+      <div className="flex aspect-[3/4] items-center justify-center rounded-t-xl bg-muted">
+        <span className="text-xs font-normal tracking-[0.2em] text-muted-foreground">
           {imageLabel}
         </span>
       </div>
-      <h2 className="mt-5 text-[0.85rem] font-light tracking-[0.16em] text-card-foreground">
-        {label}
-      </h2>
-      <p className="mt-2 text-[0.72rem] font-light leading-relaxed text-muted-foreground">
-        {description}
-      </p>
+      <div className="p-5">
+        <h2 className="text-base font-normal tracking-[0.12em] text-card-foreground">
+          {label}
+        </h2>
+        <p className="mt-2 text-sm font-normal leading-relaxed text-muted-foreground">
+          {description}
+        </p>
+      </div>
     </article>
   );
 }

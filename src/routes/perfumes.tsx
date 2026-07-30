@@ -31,8 +31,8 @@ function PerfumesPage() {
   return (
     <SiteLayout>
       <PageIntro title={t("perfumes.title")} text={t("perfumes.intro")} />
-      <section className="mx-auto max-w-5xl px-6 pb-24 sm:pb-32">
-        <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 sm:gap-8">
+      <section className="mx-auto max-w-5xl px-6 pb-20 sm:pb-24">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7">
           {state.products.map((perfume) => (
             <PerfumeCard key={perfume.id} perfume={perfume} />
           ))}

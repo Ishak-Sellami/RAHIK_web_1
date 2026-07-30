@@ -17,19 +17,19 @@ export function PerfumeCard({ perfume }: { perfume: Perfume }) {
   const name = localize(perfume.name);
 
   return (
-    <article className="group overflow-hidden rounded-lg border border-primary/25 bg-card shadow-[0_1px_24px_-18px_oklch(0.218_0_0/0.6)] transition-all duration-500 hover:border-primary/60 hover:shadow-[0_10px_40px_-26px_oklch(0.218_0_0/0.7)]">
+    <article className="group overflow-hidden rounded-2xl border border-primary/20 bg-card shadow-[0_2px_24px_-18px_oklch(0.145_0_0/0.5)] transition-all duration-500 hover:border-primary/50 hover:shadow-[0_10px_40px_-26px_oklch(0.145_0_0/0.6)]">
       <div className="aspect-[3/4] overflow-hidden bg-muted">
         <img
           src={perfume.image}
           alt={name}
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
           loading="lazy"
           decoding="async"
         />
       </div>
 
-      <div className="px-5 pb-7 pt-5 text-center">
-        <h2 className="text-[0.85rem] font-light tracking-[0.16em] text-card-foreground">
+      <div className="px-6 pb-8 pt-6 text-center">
+        <h2 className="text-lg font-normal tracking-[0.1em] text-card-foreground">
           {name}
         </h2>
 
@@ -37,10 +37,10 @@ export function PerfumeCard({ perfume }: { perfume: Perfume }) {
           <PerfumeBadges badges={perfume.badges} />
         </div>
 
-        <span className="mx-auto mt-6 block h-px w-8 bg-primary/40" aria-hidden="true" />
+        <span className="mx-auto mt-6 block h-px w-10 bg-primary/50" aria-hidden="true" />
 
         <div className="mt-6">
-          <h3 className="text-[0.68rem] font-light tracking-[0.22em] text-muted-foreground">
+          <h3 className="text-xs font-normal tracking-[0.18em] text-muted-foreground">
             {t("rating.title")}
           </h3>
 
@@ -70,7 +70,7 @@ export function PerfumeCard({ perfume }: { perfume: Perfume }) {
           <button
             type="button"
             onClick={() => setExpanded((v) => !v)}
-            className="mt-5 text-[0.62rem] font-light tracking-[0.24em] text-primary transition-colors hover:text-primary/70"
+            className="mt-6 text-xs font-normal tracking-[0.18em] text-primary transition-colors hover:text-primary/70"
             aria-expanded={expanded}
           >
             {t("home.card.action")}

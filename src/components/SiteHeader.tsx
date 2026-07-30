@@ -21,33 +21,33 @@ export function SiteHeader({ revealLogoOnScroll = false }: { revealLogoOnScroll?
       setScrolled(true);
       return;
     }
-    const onScroll = () => setScrolled(window.scrollY > 140);
+    const onScroll = () => setScrolled(window.scrollY > 120);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [revealLogoOnScroll]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-5 py-4 sm:px-8">
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/95 backdrop-blur-md">
+      <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-5 py-3.5 sm:px-8 sm:py-4">
         <Link to="/" className="flex min-w-0 items-center gap-2.5">
           <BrandLogo
             className={`w-auto transition-all duration-500 ease-out ${
-              scrolled ? "h-7 opacity-100 sm:h-8" : "h-7 opacity-0 sm:h-8"
+              scrolled ? "h-8 opacity-100 sm:h-9" : "h-8 opacity-0 sm:h-9"
             }`}
           />
-          <BrandName className="text-[0.7rem] sm:text-[0.78rem]" />
+          <BrandName className="text-xs sm:text-sm" />
         </Link>
         <LanguageSwitcher />
       </div>
 
-      <nav className="border-t border-border/60">
-        <ul className="mx-auto flex max-w-5xl items-center gap-7 overflow-x-auto px-5 py-3 sm:justify-center sm:px-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <nav className="border-t border-border/50">
+        <ul className="mx-auto flex max-w-5xl items-center gap-8 overflow-x-auto px-5 py-3 sm:justify-center sm:px-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {NAV_ITEMS.map((item) => (
             <li key={item.to} className="shrink-0">
               <Link
                 to={item.to}
-                className="text-[0.7rem] font-light tracking-[0.24em] text-muted-foreground transition-colors hover:text-foreground"
+                className="text-xs font-normal tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground sm:text-[0.82rem]"
                 activeProps={{ className: "text-foreground" }}
                 activeOptions={{ exact: item.to === "/" }}
               >

@@ -32,15 +32,15 @@ function DiscountsPage() {
   return (
     <SiteLayout>
       <PageIntro title={t("discounts.title")} text={t("discounts.intro")} />
-      <section className="mx-auto max-w-5xl px-6 pb-24 sm:pb-32">
+      <section className="mx-auto max-w-5xl px-6 pb-20 sm:pb-24">
         {discounted.length > 0 ? (
-          <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 sm:gap-7">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6">
             {discounted.map((offer) => (
               <OfferCard key={offer.id} offer={offer} withCountdown />
             ))}
           </div>
         ) : (
-          <p className="text-center text-sm font-light text-muted-foreground">
+          <p className="text-center text-base font-normal text-muted-foreground">
             {t("admin.discounts.noOffers")}
           </p>
         )}

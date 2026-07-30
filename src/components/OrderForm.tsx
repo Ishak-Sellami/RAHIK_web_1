@@ -67,9 +67,9 @@ export function OrderForm({ offer }: { offer: AdminOffer }) {
   }
 
   const inputClass =
-    "w-full rounded-md border border-border bg-background px-4 py-3 text-sm font-light text-foreground transition-colors focus:border-primary focus:outline-none";
+    "w-full rounded-lg border border-border bg-background px-4 py-3.5 text-base font-normal text-foreground transition-colors focus:border-primary focus:outline-none";
   const labelClass =
-    "mb-2 block text-[0.68rem] font-light tracking-[0.16em] text-muted-foreground";
+    "mb-2 block text-sm font-normal tracking-[0.08em] text-muted-foreground";
   const selectClass = cn(inputClass, "appearance-none cursor-pointer");
 
   return (
@@ -174,23 +174,23 @@ export function OrderForm({ offer }: { offer: AdminOffer }) {
 
         <div>
           <label className={labelClass}>{t("order.quantity")}</label>
-          <div className="inline-flex items-center rounded-md border border-border">
+          <div className="inline-flex items-center rounded-lg border border-border">
             <button
               type="button"
               onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-              className="flex h-11 w-11 items-center justify-center text-lg font-light text-muted-foreground transition-colors hover:text-primary disabled:opacity-30"
+              className="flex h-12 w-12 items-center justify-center text-xl font-normal text-muted-foreground transition-colors hover:text-primary disabled:opacity-30"
               disabled={quantity <= 1}
               aria-label="−"
             >
               −
             </button>
-            <span className="min-w-[3rem] text-center text-sm font-light tabular-nums text-foreground">
+            <span className="min-w-[3.5rem] text-center text-lg font-normal tabular-nums text-foreground">
               {quantity}
             </span>
             <button
               type="button"
               onClick={() => setQuantity((q) => Math.min(99, q + 1))}
-              className="flex h-11 w-11 items-center justify-center text-lg font-light text-muted-foreground transition-colors hover:text-primary"
+              className="flex h-12 w-12 items-center justify-center text-xl font-normal text-muted-foreground transition-colors hover:text-primary"
               aria-label="+"
             >
               +
@@ -201,32 +201,32 @@ export function OrderForm({ offer }: { offer: AdminOffer }) {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full rounded-md bg-primary px-6 py-3.5 text-[0.72rem] font-light tracking-[0.2em] text-primary-foreground transition-all duration-300 hover:opacity-90 disabled:opacity-50"
+          className="w-full rounded-xl bg-primary px-6 py-4 text-sm font-normal tracking-[0.16em] text-primary-foreground transition-all duration-300 hover:opacity-90 disabled:opacity-50"
         >
           {submitting ? t("order.submitting") : t("order.submit")}
         </button>
       </form>
 
       {/* ─── Live Order Summary ─── */}
-      <div className="rounded-xl border border-primary/25 bg-card p-6 shadow-[0_1px_24px_-18px_oklch(0.218_0_0/0.6)] sm:p-8">
-        <h3 className="text-center text-[0.68rem] font-light tracking-[0.22em] text-muted-foreground">
+      <div className="rounded-2xl border border-primary/20 bg-card p-7 shadow-[0_2px_24px_-18px_oklch(0.145_0_0/0.5)] sm:p-8">
+        <h3 className="text-center text-sm font-normal tracking-[0.18em] text-muted-foreground">
           {t("summary.title")}
         </h3>
-        <span className="mx-auto mt-5 block h-px w-8 bg-primary/40" aria-hidden="true" />
+        <span className="mx-auto mt-5 block h-px w-10 bg-primary/50" aria-hidden="true" />
 
         <dl className="mt-6 space-y-4">
           {/* Unit Price × Quantity = Price */}
-          <div className="flex items-center justify-between text-sm font-light">
+          <div className="flex items-center justify-between text-base font-normal">
             <dt className="flex items-center gap-2 text-muted-foreground">
               <span>{t("summary.unitPrice")}</span>
-              <span className="text-[0.6rem] text-border">×</span>
+              <span className="text-sm text-border">×</span>
               <span>{quantity}</span>
             </dt>
             <dd className="tabular-nums text-foreground">{formatPrice(subtotal)}</dd>
           </div>
 
           {/* Delivery */}
-          <div className="flex items-center justify-between text-sm font-light">
+          <div className="flex items-center justify-between text-base font-normal">
             <dt className="text-muted-foreground">{t("summary.delivery")}</dt>
             <dd className="tabular-nums text-foreground">
               {deliveryPrice == null
@@ -241,9 +241,9 @@ export function OrderForm({ offer }: { offer: AdminOffer }) {
           <div className="h-px bg-border/60" />
 
           {/* Total */}
-          <div className="flex items-center justify-between text-sm font-light">
-            <dt className="tracking-[0.16em] text-foreground">{t("summary.total")}</dt>
-            <dd className="text-base font-light tabular-nums text-primary">
+          <div className="flex items-center justify-between text-base font-normal">
+            <dt className="tracking-[0.1em] text-foreground">{t("summary.total")}</dt>
+            <dd className="text-xl font-normal tabular-nums text-primary">
               {formatPrice(total)}
             </dd>
           </div>
@@ -254,7 +254,7 @@ export function OrderForm({ offer }: { offer: AdminOffer }) {
       {result && (
         <p
           className={cn(
-            "rounded-md border px-4 py-3 text-center text-[0.78rem] font-light",
+            "rounded-lg border px-5 py-4 text-center text-base font-normal",
             result.ok
               ? "border-primary/30 bg-accent text-accent-foreground"
               : "border-destructive/30 bg-destructive/10 text-destructive",

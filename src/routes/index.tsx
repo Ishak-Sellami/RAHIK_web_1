@@ -24,55 +24,81 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+const CATEGORY_CARDS = [
+  {
+    to: "/perfumes",
+    titleKey: "home.card.perfumes.title",
+    textKey: "home.card.perfumes.text",
+    ctaKey: "home.card.perfumes.cta",
+    image: "https://images.pexels.com/photos/15096784/pexels-photo-15096784.jpeg?auto=compress&cs=tinysrgb&h=900&w=600",
+  },
+  {
+    to: "/offers",
+    titleKey: "home.card.offers.title",
+    textKey: "home.card.offers.text",
+    ctaKey: "home.card.offers.cta",
+    image: "https://images.pexels.com/photos/36482359/pexels-photo-36482359.jpeg?auto=compress&cs=tinysrgb&h=900&w=600",
+  },
+  {
+    to: "/discounts",
+    titleKey: "home.card.discounts.title",
+    textKey: "home.card.discounts.text",
+    ctaKey: "home.card.discounts.cta",
+    image: "https://images.pexels.com/photos/7702669/pexels-photo-7702669.jpeg?auto=compress&cs=tinysrgb&h=900&w=600",
+  },
+] as const;
+
 function Index() {
   const { t } = useI18n();
 
-  const cards = [
-    { to: "/perfumes", title: t("home.card.perfumes.title"), text: t("home.card.perfumes.text") },
-    { to: "/offers", title: t("home.card.offers.title"), text: t("home.card.offers.text") },
-    {
-      to: "/discounts",
-      title: t("home.card.discounts.title"),
-      text: t("home.card.discounts.text"),
-    },
-  ] as const;
-
   return (
     <SiteLayout revealLogoOnScroll>
-      <section className="mx-auto max-w-2xl px-6 pt-16 pb-14 text-center sm:pt-24">
-        <BrandLogo className="fade-in-up mx-auto h-28 w-auto sm:h-36" />
-        <div className="mt-8">
-          <BrandName className="text-[0.8rem] sm:text-sm" />
+      {/* Hero */}
+      <section className="mx-auto max-w-2xl px-6 pt-14 pb-12 text-center sm:pt-20 sm:pb-14">
+        <BrandLogo className="fade-in-up mx-auto h-24 w-auto sm:h-32" />
+        <div className="mt-6">
+          <BrandName className="text-sm sm:text-base" />
         </div>
-        <span className="mx-auto mt-9 block h-px w-10 bg-primary/60" aria-hidden="true" />
-        <p className="mx-auto mt-9 max-w-md text-sm font-light leading-loose text-muted-foreground">
+        <span className="mx-auto mt-7 block h-px w-12 bg-primary/60" aria-hidden="true" />
+        <p className="mx-auto mt-7 max-w-lg text-base font-normal leading-relaxed text-foreground/80">
           {t("home.intro")}
         </p>
       </section>
 
-      <section className="mx-auto max-w-5xl px-6 pb-24 sm:pb-32">
-        <div className="grid gap-6 sm:grid-cols-3 sm:gap-7">
-          {cards.map((card) => (
+      {/* Category cards */}
+      <section className="mx-auto max-w-5xl px-6 pb-20 sm:pb-28">
+        <div className="grid gap-5 sm:grid-cols-3 sm:gap-6">
+          {CATEGORY_CARDS.map((card) => (
             <Link
               key={card.to}
               to={card.to}
-              className="group flex min-h-[19rem] flex-col justify-between rounded-lg border border-primary/30 bg-card p-8 text-center shadow-[0_1px_28px_-20px_oklch(0.218_0_0/0.65)] transition-all duration-500 hover:-translate-y-0.5 hover:border-primary/70 hover:shadow-[0_14px_44px_-28px_oklch(0.218_0_0/0.7)] sm:min-h-[22rem]"
+              className="group relative flex min-h-[22rem] flex-col justify-end overflow-hidden rounded-2xl border border-primary/20 shadow-[0_2px_30px_-20px_oklch(0.145_0_0/0.5)] transition-all duration-500 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_16px_50px_-28px_oklch(0.145_0_0/0.6)] sm:min-h-[26rem]"
             >
-              <div className="pt-8">
-                <h2 className="text-base font-extralight tracking-[0.28em] text-card-foreground">
-                  {card.title}
-                </h2>
-                <span
-                  className="mx-auto mt-6 block h-px w-8 bg-primary/50 transition-all duration-500 group-hover:w-14"
-                  aria-hidden="true"
+              {/* Background image */}
+              <div className="absolute inset-0 overflow-hidden">
+                <img
+                  src={card.image}
+                  alt=""
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="eager"
+                  decoding="async"
                 />
-                <p className="mt-6 text-[0.78rem] font-light leading-loose text-muted-foreground">
-                  {card.text}
-                </p>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
               </div>
-              <span className="pb-2 text-[0.62rem] font-light tracking-[0.3em] text-primary">
-                {t("home.card.action")}
-              </span>
+
+              {/* Content overlay */}
+              <div className="relative z-10 p-7 text-center sm:p-8">
+                <h2 className="text-lg font-normal tracking-[0.18em] text-white sm:text-xl">
+                  {t(card.titleKey)}
+                </h2>
+                <span className="mx-auto mt-4 block h-px w-10 bg-primary/70 transition-all duration-500 group-hover:w-16" aria-hidden="true" />
+                <p className="mt-4 text-sm font-normal leading-relaxed text-white/75">
+                  {t(card.textKey)}
+                </p>
+                <span className="mt-6 inline-flex items-center rounded-full border border-primary/50 bg-primary/15 px-6 py-2.5 text-xs font-normal tracking-[0.18em] text-primary backdrop-blur-sm transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
+                  {t(card.ctaKey)}
+                </span>
+              </div>
             </Link>
           ))}
         </div>

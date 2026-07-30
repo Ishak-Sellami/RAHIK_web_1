@@ -38,13 +38,13 @@ function ContactPage() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-4 py-5 transition-colors hover:bg-muted/50"
+                className="group flex items-center gap-4 py-6 transition-colors hover:bg-muted/50"
               >
                 <Icon
-                  className="h-4 w-4 shrink-0 text-muted-foreground transition-colors group-hover:text-primary"
+                  className="h-5 w-5 shrink-0 text-muted-foreground transition-colors group-hover:text-primary"
                   aria-hidden="true"
                 />
-                <span className="text-[0.8rem] font-light tracking-[0.16em] text-foreground">
+                <span className="text-base font-normal tracking-[0.1em] text-foreground">
                   {t(key)}
                 </span>
               </a>
