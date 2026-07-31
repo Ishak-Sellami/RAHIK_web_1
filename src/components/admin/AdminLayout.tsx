@@ -10,6 +10,7 @@ const ADMIN_NAV = [
   { to: "/admin/discounts", key: "admin.discounts", exact: false },
   { to: "/admin/delivery", key: "admin.delivery", exact: false },
   { to: "/admin/contacts", key: "admin.contact", exact: false },
+  { to: "/admin/email", key: "admin.email.title", exact: false },
   { to: "/admin/settings", key: "admin.settings", exact: false },
 ] as const;
 
@@ -25,7 +26,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
           </h1>
           <Link
             to="/"
-            className="text-[0.62rem] font-light tracking-[0.24em] text-muted-foreground transition-colors hover:text-primary"
+            className="text-sm font-semibold tracking-[0.12em] text-muted-foreground transition-colors hover:text-primary"
           >
             {t("admin.backToSite")}
           </Link>
@@ -69,7 +70,7 @@ export function AdminCard({ children, className }: { children: ReactNode; classN
 export function AdminSectionTitle({ children }: { children: ReactNode }) {
   return (
     <>
-      <h2 className="text-xl font-normal tracking-[0.12em] text-foreground sm:text-2xl">
+      <h2 className="text-2xl font-bold tracking-[0.08em] text-foreground sm:text-3xl">
         {children}
       </h2>
       <span className="mt-4 block h-px w-10 bg-primary/60" aria-hidden="true" />

@@ -201,15 +201,15 @@ export function OrderForm({ offer }: { offer: AdminOffer }) {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full rounded-xl bg-primary px-6 py-4 text-sm font-normal tracking-[0.16em] text-primary-foreground transition-all duration-300 hover:opacity-90 disabled:opacity-50"
+          className="w-full rounded-xl bg-primary px-6 py-5 text-base font-bold tracking-[0.14em] text-primary-foreground transition-all duration-300 hover:opacity-90 disabled:opacity-50"
         >
-          {submitting ? t("order.submitting") : t("order.submit")}
+          {submitting ? t("order.submitting") : t("order.submitNow")}
         </button>
       </form>
 
       {/* ─── Live Order Summary ─── */}
       <div className="rounded-2xl border border-primary/20 bg-card p-7 shadow-[0_2px_24px_-18px_oklch(0.145_0_0/0.5)] sm:p-8">
-        <h3 className="text-center text-sm font-normal tracking-[0.18em] text-muted-foreground">
+        <h3 className="text-center text-base font-bold tracking-[0.14em] text-muted-foreground">
           {t("summary.title")}
         </h3>
         <span className="mx-auto mt-5 block h-px w-10 bg-primary/50" aria-hidden="true" />
@@ -243,7 +243,7 @@ export function OrderForm({ offer }: { offer: AdminOffer }) {
           {/* Total */}
           <div className="flex items-center justify-between text-base font-normal">
             <dt className="tracking-[0.1em] text-foreground">{t("summary.total")}</dt>
-            <dd className="text-xl font-normal tabular-nums text-primary">
+            <dd className="text-2xl font-bold tabular-nums text-primary">
               {formatPrice(total)}
             </dd>
           </div>

@@ -22,11 +22,11 @@ export function SiteLayout({
 export function PageIntro({ title, text }: { title: string; text: string }) {
   return (
     <section className="mx-auto max-w-2xl px-6 pt-12 pb-8 text-center sm:pt-20 sm:pb-12">
-      <h1 className="text-2xl font-normal tracking-[0.16em] text-foreground sm:text-4xl">
+      <h1 className="text-3xl font-bold tracking-[0.1em] text-foreground sm:text-5xl">
         {title}
       </h1>
       <span className="mx-auto mt-5 block h-px w-12 bg-primary/60" aria-hidden="true" />
-      <p className="mx-auto mt-5 max-w-lg text-base font-normal leading-relaxed text-muted-foreground">
+      <p className="mx-auto mt-5 max-w-lg text-lg font-normal leading-relaxed text-muted-foreground">
         {text}
       </p>
     </section>

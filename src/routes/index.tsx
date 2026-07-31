@@ -57,10 +57,10 @@ function Index() {
       <section className="mx-auto max-w-2xl px-6 pt-14 pb-12 text-center sm:pt-20 sm:pb-14">
         <BrandLogo className="fade-in-up mx-auto h-24 w-auto sm:h-32" />
         <div className="mt-6">
-          <BrandName className="text-sm sm:text-base" />
+          <BrandName className="text-base font-bold sm:text-lg" />
         </div>
         <span className="mx-auto mt-7 block h-px w-12 bg-primary/60" aria-hidden="true" />
-        <p className="mx-auto mt-7 max-w-lg text-base font-normal leading-relaxed text-foreground/80">
+        <p className="mx-auto mt-7 max-w-lg text-lg font-normal leading-relaxed text-foreground/80">
           {t("home.intro")}
         </p>
       </section>
@@ -88,14 +88,14 @@ function Index() {
 
               {/* Content overlay */}
               <div className="relative z-10 p-7 text-center sm:p-8">
-                <h2 className="text-lg font-normal tracking-[0.18em] text-white sm:text-xl">
+                <h2 className="text-xl font-bold tracking-[0.14em] text-white sm:text-2xl">
                   {t(card.titleKey)}
                 </h2>
                 <span className="mx-auto mt-4 block h-px w-10 bg-primary/70 transition-all duration-500 group-hover:w-16" aria-hidden="true" />
-                <p className="mt-4 text-sm font-normal leading-relaxed text-white/75">
+                <p className="mt-4 text-base font-normal leading-relaxed text-white/80">
                   {t(card.textKey)}
                 </p>
-                <span className="mt-6 inline-flex items-center rounded-full border border-primary/50 bg-primary/15 px-6 py-2.5 text-xs font-normal tracking-[0.18em] text-primary backdrop-blur-sm transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
+                <span className="mt-6 inline-flex items-center rounded-full border-2 border-primary/60 bg-primary/20 px-8 py-3 text-sm font-bold tracking-[0.14em] text-primary backdrop-blur-sm transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
                   {t(card.ctaKey)}
                 </span>
               </div>

@@ -44,7 +44,7 @@ export function RatingGroup({
     <div className="space-y-3">
       <h3
         className={cn(
-          "text-xs font-normal tracking-[0.18em] text-muted-foreground",
+          "text-sm font-bold tracking-[0.14em] text-muted-foreground",
           titleClassName,
         )}
       >

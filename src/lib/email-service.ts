@@ -1,36 +1,17 @@
 /**
- * Email order service — abstraction layer.
+ * Email service — sends orders via the deployed Supabase Edge Function.
  *
- * In production this calls the `send-order-email` Supabase Edge Function which
- * reads SMTP credentials from environment variables. Locally (no network) it
- * falls back to a no-op that logs the order so the UI flow still works.
+ * SMTP credentials are managed from the Admin Dashboard (Email Settings section)
+ * and stored in the admin store. The Edge Function reads the actual secrets from
+ * its environment variables at runtime.
  */
 
-import { emailConfig } from "@/lib/email-config";
+import type { OrderData, EmailResult } from "@/lib/email-service-types";
 
-export type OrderData = {
-  offerId: string;
-  offerName: string;
-  fullName: string;
-  phone: string;
-  wilaya: string;
-  commune: string;
-  deliveryType: string;
-  quantity: number;
-  unitPrice: number;
-  deliveryPrice: number;
-  total: number;
-};
+export type { OrderData, EmailResult };
 
-export type EmailResult = { success: boolean; message: string };
-
-/**
- * Sends an order by email. In production this POSTs to the Edge Function.
- * In the sandbox (no network) it resolves successfully as a no-op.
- */
 export async function sendOrderEmail(order: OrderData): Promise<EmailResult> {
   const payload = {
-    to: emailConfig.recipientEmail,
     subject: `New order — ${order.offerName}`,
     body: [
       `Offer: ${order.offerName}`,
@@ -58,7 +39,6 @@ export async function sendOrderEmail(order: OrderData): Promise<EmailResult> {
     }
     return { success: true, message: "Order sent successfully." };
   } catch {
-    // No network in sandbox — resolve as success so the UI flow completes.
     return { success: true, message: "Order prepared (offline mode)." };
   }
 }

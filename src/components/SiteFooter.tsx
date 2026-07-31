@@ -9,7 +9,7 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-border/60 bg-background">
       <div className="mx-auto max-w-5xl px-5 py-14 text-center sm:px-8 sm:py-16">
-        <BrandName className="text-sm" />
+        <BrandName className="text-sm font-bold" />
 
         <span className="mx-auto mt-6 block h-px w-10 bg-primary/60" aria-hidden="true" />
 

@@ -56,12 +56,21 @@ export type AdminOffer = Offer & {
   discount?: DiscountInfo;
 };
 
+export type EmailSettings = {
+  smtpHost: string;
+  smtpPort: string;
+  smtpEmail: string;
+  smtpPassword: string;
+  recipientEmail: string;
+};
+
 export type AdminState = {
   brand: BrandSettings;
   contacts: ContactLinks;
   products: Perfume[];
   offers: AdminOffer[];
   deliveryPricing: DeliveryPricing;
+  email: EmailSettings;
 };
 
 // ─── Defaults ───────────────────────────────────────────────────────────────
@@ -109,12 +118,21 @@ function defaultOffers(): AdminOffer[] {
   }));
 }
 
+const DEFAULT_EMAIL: EmailSettings = {
+  smtpHost: "YOUR_SMTP_HOST",
+  smtpPort: "587",
+  smtpEmail: "your-email@example.com",
+  smtpPassword: "your-password",
+  recipientEmail: "orders@rahiqparfums.dz",
+};
+
 const DEFAULT_STATE: AdminState = {
   brand: DEFAULT_BRAND,
   contacts: DEFAULT_CONTACTS,
   products: PERFUMES,
   offers: defaultOffers(),
   deliveryPricing: defaultDeliveryPricing(),
+  email: DEFAULT_EMAIL,
 };
 
 // ─── Persistence ────────────────────────────────────────────────────────────
@@ -133,6 +151,7 @@ function loadState(): AdminState {
       products: parsed.products ?? DEFAULT_STATE.products,
       offers: parsed.offers ?? DEFAULT_STATE.offers,
       deliveryPricing: parsed.deliveryPricing ?? DEFAULT_STATE.deliveryPricing,
+      email: parsed.email ?? DEFAULT_STATE.email,
     };
   } catch {
     return DEFAULT_STATE;
@@ -161,6 +180,7 @@ type AdminContextValue = {
   updateOffer: (id: string, patch: Partial<AdminOffer>) => void;
   deleteOffer: (id: string) => void;
   updateDeliveryPricing: (code: string, patch: Partial<DeliveryPricing[string]>) => void;
+  updateEmail: (patch: Partial<EmailSettings>) => void;
   resetState: () => void;
 };
 
@@ -228,6 +248,10 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     [],
   );
 
+  const updateEmail = useCallback((patch: Partial<EmailSettings>) => {
+    setState((s) => ({ ...s, email: { ...s.email, ...patch } }));
+  }, []);
+
   const resetState = useCallback(() => {
     setState(DEFAULT_STATE);
   }, []);
@@ -244,9 +268,10 @@ export function AdminProvider({ children }: { children: ReactNode }) {
       updateOffer,
       deleteOffer,
       updateDeliveryPricing,
+      updateEmail,
       resetState,
     }),
-    [state, updateBrand, updateContacts, addProduct, updateProduct, deleteProduct, addOffer, updateOffer, deleteOffer, updateDeliveryPricing, resetState],
+    [state, updateBrand, updateContacts, addProduct, updateProduct, deleteProduct, addOffer, updateOffer, deleteOffer, updateDeliveryPricing, updateEmail, resetState],
   );
 
   return <AdminContext.Provider value={value}>{children}</AdminContext.Provider>;

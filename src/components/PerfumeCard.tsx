@@ -29,7 +29,7 @@ export function PerfumeCard({ perfume }: { perfume: Perfume }) {
       </div>
 
       <div className="px-6 pb-8 pt-6 text-center">
-        <h2 className="text-lg font-normal tracking-[0.1em] text-card-foreground">
+        <h2 className="text-xl font-bold tracking-[0.06em] text-card-foreground">
           {name}
         </h2>
 
@@ -40,7 +40,7 @@ export function PerfumeCard({ perfume }: { perfume: Perfume }) {
         <span className="mx-auto mt-6 block h-px w-10 bg-primary/50" aria-hidden="true" />
 
         <div className="mt-6">
-          <h3 className="text-xs font-normal tracking-[0.18em] text-muted-foreground">
+          <h3 className="text-sm font-bold tracking-[0.14em] text-muted-foreground">
             {t("rating.title")}
           </h3>
 

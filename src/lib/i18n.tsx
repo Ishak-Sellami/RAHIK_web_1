@@ -71,6 +71,7 @@ const translations: Record<Language, Dict> = {
     "offers.item": "عرض",
     "offers.placeholder": "وصف مختصر للعرض يُضاف لاحقًا.",
     "offers.viewDetails": "عرض التفاصيل",
+    "offers.cta": "اطلب",
 
     "discounts.title": "التخفيضات",
     "discounts.intro": "اختيارات مميزة بأسعار خاصة لمدة محدودة.",
@@ -113,6 +114,7 @@ const translations: Record<Language, Dict> = {
     "order.deliveryOffice": "التوصيل إلى المكتب",
     "order.quantity": "الكمية",
     "order.submit": "إرسال الطلب",
+    "order.submitNow": "اطلب الآن",
     "order.submitting": "جارٍ الإرسال...",
     "order.success": "تم إرسال طلبك بنجاح. سنتواصل معك قريبًا.",
     "order.error": "حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.",
@@ -209,6 +211,15 @@ const translations: Record<Language, Dict> = {
     "admin.delivery.free": "توصيل مجاني",
     "admin.delivery.save": "حفظ الأسعار",
     "admin.delivery.saved": "تم حفظ أسعار التوصيل",
+
+    "admin.email.title": "إعدادات البريد الإلكتروني",
+    "admin.email.smtpHost": "خادم SMTP",
+    "admin.email.smtpPort": "منفذ SMTP",
+    "admin.email.smtpEmail": "بريد SMTP",
+    "admin.email.smtpPassword": "كلمة مرور SMTP",
+    "admin.email.recipientEmail": "البريد المستقبل للطلبات",
+    "admin.email.save": "حفظ الإعدادات",
+    "admin.email.saved": "تم حفظ إعدادات البريد",
   },
   en: {
     "nav.home": "Home",
@@ -258,6 +269,7 @@ const translations: Record<Language, Dict> = {
     "offers.item": "Offer",
     "offers.placeholder": "A short offer description will be added later.",
     "offers.viewDetails": "View details",
+    "offers.cta": "Order",
 
     "discounts.title": "Discounts",
     "discounts.intro": "Selected pieces at special prices for a limited time.",
@@ -300,6 +312,7 @@ const translations: Record<Language, Dict> = {
     "order.deliveryOffice": "Delivery to Office",
     "order.quantity": "Quantity",
     "order.submit": "Submit Order",
+    "order.submitNow": "Order Now",
     "order.submitting": "Sending...",
     "order.success": "Your order has been sent successfully. We will contact you shortly.",
     "order.error": "An error occurred while sending the order. Please try again.",
@@ -396,6 +409,15 @@ const translations: Record<Language, Dict> = {
     "admin.delivery.free": "Free Delivery",
     "admin.delivery.save": "Save Prices",
     "admin.delivery.saved": "Delivery prices saved",
+
+    "admin.email.title": "Email Settings",
+    "admin.email.smtpHost": "SMTP Host",
+    "admin.email.smtpPort": "SMTP Port",
+    "admin.email.smtpEmail": "SMTP Email",
+    "admin.email.smtpPassword": "SMTP Password",
+    "admin.email.recipientEmail": "Recipient Email",
+    "admin.email.save": "Save Settings",
+    "admin.email.saved": "Email settings saved",
   },
 };
 

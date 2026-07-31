@@ -75,7 +75,7 @@ function OfferDetailsContent({
       </section>
 
       <section className="mx-auto max-w-2xl px-6 pb-10 text-center">
-        <h1 className="text-2xl font-normal tracking-[0.16em] text-foreground sm:text-4xl">
+        <h1 className="text-3xl font-bold tracking-[0.1em] text-foreground sm:text-5xl">
           {name}
         </h1>
         <span className="mx-auto mt-6 block h-px w-12 bg-primary/60" aria-hidden="true" />
@@ -84,17 +84,17 @@ function OfferDetailsContent({
             price={price}
             oldPrice={oldP}
             className="justify-center"
-            priceClassName="text-xl tracking-[0.08em]"
+            priceClassName="text-2xl font-bold tracking-[0.06em]"
           />
         </div>
-        <p className="mx-auto mt-6 max-w-md text-base font-normal leading-relaxed text-muted-foreground">
+        <p className="mx-auto mt-6 max-w-md text-lg font-normal leading-relaxed text-muted-foreground">
           {description}
         </p>
       </section>
 
       <section className="mx-auto max-w-2xl px-6 pb-12">
         <div className="rounded-2xl border border-primary/20 bg-card p-7 shadow-[0_2px_24px_-18px_oklch(0.145_0_0/0.5)] sm:p-9">
-          <h2 className="text-center text-sm font-normal tracking-[0.18em] text-muted-foreground">
+          <h2 className="text-center text-base font-bold tracking-[0.14em] text-muted-foreground">
             {t("offerDetails.included")}
           </h2>
           <span className="mx-auto mt-5 block h-px w-10 bg-primary/50" aria-hidden="true" />
@@ -113,7 +113,7 @@ function OfferDetailsContent({
       </section>
 
       <section className="mx-auto max-w-5xl px-6 pb-16">
-        <h2 className="mb-8 text-center text-sm font-normal tracking-[0.18em] text-muted-foreground">
+        <h2 className="mb-8 text-center text-base font-bold tracking-[0.14em] text-muted-foreground">
           {t("offerDetails.perfumes")}
         </h2>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-7">
@@ -132,7 +132,7 @@ function OfferDetailsContent({
                 />
               </div>
               <div className="px-5 pb-6 pt-5 text-center">
-                <h3 className="text-base font-normal tracking-[0.1em] text-card-foreground">
+                <h3 className="text-lg font-bold tracking-[0.08em] text-card-foreground">
                   {localize(perfume.name)}
                 </h3>
                 <span className="mx-auto mt-3 block h-px w-8 bg-primary/40" aria-hidden="true" />
@@ -147,7 +147,7 @@ function OfferDetailsContent({
 
       {/* ─── Order Form (Phase 4) ─── */}
       <section className="mx-auto max-w-2xl px-6 pb-24 sm:pb-32">
-        <h2 className="mb-8 text-center text-sm font-normal tracking-[0.18em] text-muted-foreground">
+        <h2 className="mb-8 text-center text-base font-bold tracking-[0.14em] text-muted-foreground">
           {t("offerDetails.orderForm")}
         </h2>
         <OrderForm offer={offer} />

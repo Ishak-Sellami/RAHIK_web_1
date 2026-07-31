@@ -45,7 +45,7 @@ function AdminSettingsPage() {
               value={form.logoUrl}
               onChange={(e) => setForm({ ...form, logoUrl: e.target.value })}
               dir="ltr"
-              placeholder="https://..."
+              placeholder="/images/logo/logo.png"
             />
           </AdminField>
           <AdminField label={t("admin.brand.heroLogoUrl")}>
@@ -53,31 +53,40 @@ function AdminSettingsPage() {
               value={form.heroLogoUrl}
               onChange={(e) => setForm({ ...form, heroLogoUrl: e.target.value })}
               dir="ltr"
-              placeholder="https://..."
-            />
-          </AdminField>
-          <AdminField label={t("admin.brand.faviconUrl")}>
-            <AdminInput
-              value={form.faviconUrl}
-              onChange={(e) => setForm({ ...form, faviconUrl: e.target.value })}
-              dir="ltr"
-              placeholder="https://..."
+              placeholder="/images/logo/logo.png"
             />
           </AdminField>
 
-          {form.logoUrl && (
-            <div className="rounded-md border border-border/70 p-4">
-              <p className="mb-2 text-[0.58rem] font-light tracking-[0.14em] text-muted-foreground">
-                {t("admin.brand.logo")}
-              </p>
-              <img src={form.logoUrl} alt="Logo preview" className="h-12 w-auto" />
+          {/* Favicon — display only, not editable */}
+          <AdminField label={t("admin.brand.favicon")}>
+            <div className="flex items-center gap-3 rounded-lg border border-border/70 bg-muted/30 px-4 py-3">
+              <img
+                src={form.faviconUrl || "/favicon.ico"}
+                alt="Favicon"
+                className="h-8 w-8 rounded"
+              />
+              <span className="text-sm font-normal text-muted-foreground">
+                {form.faviconUrl || "/favicon.ico"}
+              </span>
             </div>
-          )}
+          </AdminField>
+
+          {/* Logo preview */}
+          <div className="rounded-lg border border-border/70 p-4">
+            <p className="mb-3 text-sm font-normal tracking-[0.08em] text-muted-foreground">
+              {t("admin.brand.logo")}
+            </p>
+            <img
+              src={form.logoUrl || "/images/logo/logo.png"}
+              alt="Logo preview"
+              className="h-16 w-auto"
+            />
+          </div>
 
           <div className="flex items-center gap-4">
             <AdminButton onClick={handleSave}>{t("admin.brand.save")}</AdminButton>
             {saved && (
-              <span className="text-[0.62rem] font-light tracking-[0.14em] text-primary">
+              <span className="text-sm font-normal tracking-[0.08em] text-primary">
                 {t("admin.brand.saved")}
               </span>
             )}
