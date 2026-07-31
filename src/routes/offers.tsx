@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useMatchRoute } from "@tanstack/react-router";
 import { SiteLayout, PageIntro } from "@/components/SiteLayout";
 import { OfferCard } from "@/components/OfferCard";
 import { useI18n } from "@/lib/i18n";
@@ -27,6 +27,12 @@ export const Route = createFileRoute("/offers")({
 function OffersPage() {
   const { t } = useI18n();
   const { state } = useAdmin();
+  const matchRoute = useMatchRoute();
+  const isDetail = matchRoute({ to: "/offers/$offerId" });
+
+  if (isDetail) {
+    return <Outlet />;
+  }
 
   return (
     <SiteLayout>
