@@ -56,6 +56,7 @@ function OfferDetailsContent({
 }) {
   const name = localize(offer.name);
   const description = localize(offer.description);
+  const longDesc = offer.longDescription ? localize(offer.longDescription) : "";
   const price = effectivePrice(offer);
   const oldP = oldPrice(offer);
 
@@ -90,12 +91,17 @@ function OfferDetailsContent({
         <p className="mx-auto mt-6 max-w-md text-lg font-normal leading-relaxed text-muted-foreground">
           {description}
         </p>
+        {longDesc && (
+          <p className="mx-auto mt-4 max-w-md text-base font-normal leading-relaxed text-muted-foreground/80">
+            {longDesc}
+          </p>
+        )}
       </section>
 
       <section className="mx-auto max-w-2xl px-6 pb-12">
         <div className="rounded-2xl border border-primary/20 bg-card p-7 shadow-[0_2px_24px_-18px_oklch(0.145_0_0/0.5)] sm:p-9">
           <h2 className="text-center text-base font-bold tracking-[0.14em] text-muted-foreground">
-            {t("offerDetails.included")}
+            {t("offerDetails.contents")}
           </h2>
           <span className="mx-auto mt-5 block h-px w-10 bg-primary/50" aria-hidden="true" />
           <ul className="mt-6 space-y-4">

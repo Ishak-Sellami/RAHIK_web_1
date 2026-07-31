@@ -24,6 +24,7 @@ export async function sendOrderEmail(order: OrderData): Promise<EmailResult> {
       `Unit price: ${order.unitPrice} DA`,
       `Delivery: ${order.deliveryPrice === 0 ? "Free" : `${order.deliveryPrice} DA`}`,
       `Total: ${order.total} DA`,
+      `Date: ${new Date(order.orderDateTime).toLocaleString()}`,
     ].join("\n"),
   };
 

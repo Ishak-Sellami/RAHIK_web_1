@@ -22,8 +22,10 @@ function emptyOffer(): AdminOffer {
     id: "",
     name: { ar: "", en: "" },
     description: { ar: "", en: "" },
+    longDescription: { ar: "", en: "" },
     images: [""],
     price: 0,
+    maxQuantity: 99,
     freeDelivery: false,
     includes: [],
     perfumes: [],
@@ -114,6 +116,27 @@ function AdminOffersPage() {
                 onChange={(e) => setEditing({ ...editing, price: Number(e.target.value) })}
               />
             </AdminField>
+            <AdminField label={t("admin.offers.maxQuantity")}>
+              <AdminInput
+                type="number"
+                value={editing.maxQuantity ?? 99}
+                onChange={(e) => setEditing({ ...editing, maxQuantity: Number(e.target.value) })}
+              />
+            </AdminField>
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              <AdminField label={t("admin.offers.longDescAr")}>
+                <AdminTextarea
+                  value={editing.longDescription?.ar ?? ""}
+                  onChange={(e) => setEditing({ ...editing, longDescription: { ...editing.longDescription!, ar: e.target.value } })}
+                />
+              </AdminField>
+              <AdminField label={t("admin.offers.longDescEn")}>
+                <AdminTextarea
+                  value={editing.longDescription?.en ?? ""}
+                  onChange={(e) => setEditing({ ...editing, longDescription: { ...editing.longDescription!, en: e.target.value } })}
+                />
+              </AdminField>
+            </div>
             <label className="flex items-center gap-3">
               <input
                 type="checkbox"
@@ -121,7 +144,7 @@ function AdminOffersPage() {
                 onChange={(e) => setEditing({ ...editing, freeDelivery: e.target.checked })}
                 className="h-4 w-4 accent-[oklch(0.769_0.127_87.6)]"
               />
-              <span className="text-[0.72rem] font-light tracking-[0.14em] text-foreground">
+              <span className="text-sm font-normal tracking-[0.08em] text-foreground">
                 {t("admin.offers.freeDelivery")}
               </span>
             </label>
@@ -143,8 +166,8 @@ function AdminOffersPage() {
                 <img src={o.images[0]} alt="" className="h-16 w-16 rounded-md object-cover" />
               )}
               <div className="flex-1">
-                <p className="text-sm font-light text-foreground">{o.name.ar} / {o.name.en}</p>
-                <p className="mt-1 text-[0.62rem] font-light tracking-[0.14em] text-muted-foreground">
+                <p className="text-base font-normal text-foreground">{o.name.ar} / {o.name.en}</p>
+                <p className="mt-1 text-sm font-normal tracking-[0.08em] text-muted-foreground">
                   {o.price} DA {o.freeDelivery ? "· Free Delivery" : ""}
                 </p>
               </div>

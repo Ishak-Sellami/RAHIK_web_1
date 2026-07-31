@@ -21,6 +21,7 @@ export function OrderForm({ offer }: { offer: AdminOffer }) {
 
   const unitPrice = effectivePrice(offer);
   const isFreeDelivery = offer.freeDelivery;
+  const maxQty = offer.maxQuantity ?? 99;
 
   const deliveryPrice = useMemo(() => {
     if (!wilayaCode) return null;
@@ -52,6 +53,7 @@ export function OrderForm({ offer }: { offer: AdminOffer }) {
       unitPrice,
       deliveryPrice: deliveryPrice ?? 0,
       total,
+      orderDateTime: new Date().toISOString(),
     };
 
     const res = await sendOrderEmail(order);
@@ -107,54 +109,52 @@ export function OrderForm({ offer }: { offer: AdminOffer }) {
           />
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <div>
-            <label className={labelClass} htmlFor="wilaya">
-              {t("order.wilaya")}
-            </label>
-            <select
-              id="wilaya"
-              required
-              value={wilayaCode}
-              onChange={(e) => {
-                setWilayaCode(e.target.value);
-                setCommune("");
-              }}
-              className={selectClass}
-            >
-              <option value="" disabled>
-                {t("order.wilayaPlaceholder")}
+        <div>
+          <label className={labelClass} htmlFor="wilaya">
+            {t("order.wilaya")}
+          </label>
+          <select
+            id="wilaya"
+            required
+            value={wilayaCode}
+            onChange={(e) => {
+              setWilayaCode(e.target.value);
+              setCommune("");
+            }}
+            className={selectClass}
+          >
+            <option value="" disabled>
+              {t("order.wilayaPlaceholder")}
+            </option>
+            {WILAYAS.map((w) => (
+              <option key={w.code} value={w.code}>
+                {w.code} {lang === "ar" ? w.nameAr : w.nameEn}
               </option>
-              {WILAYAS.map((w) => (
-                <option key={w.code} value={w.code}>
-                  {w.code} — {lang === "ar" ? w.nameAr : w.nameEn}
-                </option>
-              ))}
-            </select>
-          </div>
+            ))}
+          </select>
+        </div>
 
-          <div>
-            <label className={labelClass} htmlFor="commune">
-              {t("order.commune")}
-            </label>
-            <select
-              id="commune"
-              required
-              value={commune}
-              onChange={(e) => setCommune(e.target.value)}
-              disabled={!wilayaCode}
-              className={cn(selectClass, !wilayaCode && "opacity-50")}
-            >
-              <option value="" disabled>
-                {t("order.communePlaceholder")}
+        <div>
+          <label className={labelClass} htmlFor="commune">
+            {t("order.commune")}
+          </label>
+          <select
+            id="commune"
+            required
+            value={commune}
+            onChange={(e) => setCommune(e.target.value)}
+            disabled={!wilayaCode}
+            className={cn(selectClass, !wilayaCode && "opacity-50")}
+          >
+            <option value="" disabled>
+              {t("order.communePlaceholder")}
+            </option>
+            {selectedWilaya?.communes.map((c, i) => (
+              <option key={i} value={lang === "ar" ? c.nameAr : c.nameEn}>
+                {lang === "ar" ? c.nameAr : c.nameEn}
               </option>
-              {selectedWilaya?.communes.map((c, i) => (
-                <option key={i} value={lang === "ar" ? c.nameAr : c.nameEn}>
-                  {lang === "ar" ? c.nameAr : c.nameEn}
-                </option>
-              ))}
-            </select>
-          </div>
+            ))}
+          </select>
         </div>
 
         <div>
@@ -189,9 +189,10 @@ export function OrderForm({ offer }: { offer: AdminOffer }) {
             </span>
             <button
               type="button"
-              onClick={() => setQuantity((q) => Math.min(99, q + 1))}
+              onClick={() => setQuantity((q) => Math.min(maxQty, q + 1))}
               className="flex h-12 w-12 items-center justify-center text-xl font-normal text-muted-foreground transition-colors hover:text-primary"
               aria-label="+"
+              disabled={quantity >= maxQty}
             >
               +
             </button>

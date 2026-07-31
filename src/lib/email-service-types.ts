@@ -10,6 +10,7 @@ export type OrderData = {
   unitPrice: number;
   deliveryPrice: number;
   total: number;
+  orderDateTime: string;
 };
 
 export type EmailResult = { success: boolean; message: string };

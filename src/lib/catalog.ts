@@ -27,9 +27,11 @@ export type Offer = {
   id: string;
   name: Bilingual;
   description: Bilingual;
+  longDescription?: Bilingual;
   images: string[];
   price: number;
   oldPrice?: number;
+  maxQuantity?: number;
   includes: Bilingual[];
   perfumes: { name: Bilingual; image: string; description: Bilingual }[];
 };
